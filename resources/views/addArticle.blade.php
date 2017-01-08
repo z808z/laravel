@@ -1,0 +1,13 @@
+@extends('main')
+
+@section('content')
+    <h1>Добавление новой статьи</h1>
+    <form action="" method="POST">
+        <p><label for="title">Заголовок статьи</label></p>
+        <p><input type="text" name="title"></p>
+        <p><label for="content">Текст статьи</label></p>
+        <p><textarea name="content" id="" cols="30" rows="10"></textarea></p>
+        {{ csrf_field() }}
+        <input type="submit">
+    </form>
+@endsection
