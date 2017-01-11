@@ -31,6 +31,11 @@
 		</section>
 
 		<section class="content">
+			@if(Session::has('message'))
+				<div class="content__messeges">
+					{{Session::get('message')}}
+				</div>
+			@endif
 			@section('content')
 			@show					
 		</section>

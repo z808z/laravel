@@ -35,3 +35,8 @@ Route::group(['namespace' => 'Article'], function()
 	Route::get('/delete/{id}', 'ArticleController@deleteArticle')
 	->where('id', '[0-9]+');
 });
+
+
+Route::get('/login', function () {
+    return redirect('');
+});

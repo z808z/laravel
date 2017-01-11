@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Http\Models;
 
 use DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 
-class Articles extends Model
+class Article extends Model
 {
-
+    //
 }

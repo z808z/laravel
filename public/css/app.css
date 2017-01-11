@@ -90,7 +90,11 @@ body {
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-
+.content__messeges {
+	background: #69747c;
+	color: #fff;
+	padding: 20px;
+}
 
 footer {
 
