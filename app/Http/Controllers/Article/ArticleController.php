@@ -4,18 +4,25 @@ namespace App\Http\Controllers\Article;
 
 
 
+
 use DB;
 use App\Http\Models\Article;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HelperController;
 use Illuminate\Http\Request;
 
 
 class ArticleController extends Controller
 {
 
-    public function allArticle()
+    public function allArticle(HelperController $helperController)
     {
         $articles = Article::all();
+        foreach ($articles as $article) {
+            if (!$article->description) {
+                $article->description = $helperController->makeDescription($article->content);
+            }
+        }
         return view('allArticles', ['articles' => $articles]);
     }
 
@@ -40,16 +47,12 @@ class ArticleController extends Controller
         $article = new Article();
         $article->title = $request->input('title');
         $article->content = $request->input('content');
-
-        $article->description = strip_tags($article->content);
-        $article->description = substr($article->description, 0, 250);
-        $article->description = rtrim($article->description, "!,.-");
-        $article->description = substr($article->description, 0, strrpos($article->description, ' ')) . "...";
+        $article->description = $request->input('description');
 
         $article->save();
 
         $message = trans('messages.addArticle', ['title' => $article->title]);
-        $mess = ['message'=>$message];
+        $mess = ['message' => $message];
         return redirect()->back()->with($mess);
     }
 
@@ -65,15 +68,10 @@ class ArticleController extends Controller
         $article->title = $request->input('title');
         $article->content = $request->input('content');
 
-        $article->description = strip_tags($article->content);
-        $article->description = substr($article->description, 0, 250);
-        $article->description = rtrim($article->description, "!,.-");
-        $article->description = substr($article->description, 0, strrpos($article->description, ' ')) . "...";
-
         $article->save();
 
         $message = trans('messages.editArticle', ['title' => $article->title]);
-        $mess = ['message'=>$message];
+        $mess = ['message' => $message];
         return redirect()->back()->with($mess);
 
     }
@@ -83,7 +81,7 @@ class ArticleController extends Controller
         $article = Article::find($id)->delete();
 
         $message = trans('messages.deleteArticle');
-        $mess = ['message'=>$message];
+        $mess = ['message' => $message];
         return redirect('')->with($mess);
     }
 
