@@ -66,6 +66,7 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
         $article->title = $request->input('title');
+        $article->description = $request->input('description');
         $article->content = $request->input('content');
 
         $article->save();
