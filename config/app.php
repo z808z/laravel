@@ -166,7 +166,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         //
 
         /*
@@ -232,6 +233,11 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /**
+            Application Facades
+         */
+
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
