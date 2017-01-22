@@ -11,32 +11,37 @@
 |
 */
 
+Route::get('/login', function () {
+    return redirect('');
+});
+Auth::routes();
 
 Route::group(['namespace' => 'Article'], function()
 {
 	/* Блог (Вывод всех новостей) */
 	Route::get('/', 'ArticleController@allArticle');
 
-
 	/* Просмотр одной новости */
 	Route::get('/{id}', 'ArticleController@oneArticle')
 	->where('id', '[0-9]+');
 
 	/* Добавление новости */
-	Route::get('/add', 'ArticleController@addArticle');
-    Route::post('/add', 'ArticleController@addArticlePost');
+	Route::get('/add', 'ArticleController@addArticle')
+        ->middleware('auth');
+    Route::post('/add', 'ArticleController@addArticlePost')
+        ->middleware('auth');
 
 	/* Редактирование новости */
 	Route::get('/edit/{id}', 'ArticleController@editArticle')
-	->where('id', '[0-9]+');
-    Route::post('/edit/{id}', 'ArticleController@editArticlePost');
+        ->middleware('auth')
+        ->where('id', '[0-9]+');
+    Route::post('/edit/{id}', 'ArticleController@editArticlePost')
+        ->middleware('auth');
 
 	/* Удаление новости */
 	Route::get('/delete/{id}', 'ArticleController@deleteArticle')
-	->where('id', '[0-9]+');
+        ->middleware('auth')
+	    ->where('id', '[0-9]+');
 });
 
 
-Route::get('/login', function () {
-    return redirect('');
-});
